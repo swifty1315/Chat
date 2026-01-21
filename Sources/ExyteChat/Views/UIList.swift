@@ -13,11 +13,11 @@ public extension Notification.Name {
 
 // MARK: - Chat content inset (LOCAL, no separate file)
 
-struct ChatContentInsetKey: EnvironmentKey {
+public struct ChatContentInsetKey: EnvironmentKey {
     static let defaultValue: UIEdgeInsets = .zero
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var chatContentInset: UIEdgeInsets {
         get { self[ChatContentInsetKey.self] }
         set { self[ChatContentInsetKey.self] = newValue }
