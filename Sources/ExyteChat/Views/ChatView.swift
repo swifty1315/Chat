@@ -360,28 +360,28 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
             listSwipeActions: listSwipeActions,
             keyboardDismissMode: keyboardDismissMode
         )
-        .applyIf(!isScrollEnabled) {
-            $0.frame(height: tableContentHeight)
-        }
-        .onStatusBarTap {
-            shouldScrollToTop()
-        }
+//        .applyIf(!isScrollEnabled) {
+//            $0.frame(height: tableContentHeight)
+//        }
+//        .onStatusBarTap {
+//            shouldScrollToTop()
+//        }
 //        .transparentNonAnimatingFullScreenCover(item: $viewModel.messageMenuRow) {
 //            if let row = viewModel.messageMenuRow {
 //                messageMenu(row)
 //                    .onAppear(perform: showMessageMenu)
 //            }
 //        }
-        .onPreferenceChange(MessageMenuPreferenceKey.self) { frames in
-            DispatchQueue.main.async {
-                self.cellFrames = frames
-            }
-        }
-        .simultaneousGesture(
-            TapGesture().onEnded {
-                globalFocusState.focus = nil
-            }
-        )
+//        .onPreferenceChange(MessageMenuPreferenceKey.self) { frames in
+//            DispatchQueue.main.async {
+//                self.cellFrames = frames
+//            }
+//        }
+//        .simultaneousGesture(
+//            TapGesture().onEnded {
+//                globalFocusState.focus = nil
+//            }
+//        )
         .onAppear {
             viewModel.didSendMessage = didSendMessage
             viewModel.inputViewModel = inputViewModel
