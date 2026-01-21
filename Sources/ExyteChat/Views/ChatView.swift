@@ -178,8 +178,8 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
     public var body: some View {
 
         mainView
-            .background(Color.black) // или chatBackground()
-//            .background(chatBackground())
+//            .background(Color.black) // или chatBackground()
+            .background(chatBackground())
 //            .environmentObject(keyboardState)
 //        
 //            .fullScreenCover(isPresented: $viewModel.fullscreenAttachmentPresented) {
