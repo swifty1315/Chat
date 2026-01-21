@@ -29,7 +29,6 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
     typealias MessageBuilderClosure = ChatView<MessageContent, InputView, DefaultMessageMenuAction>.MessageBuilderClosure
 
     @Environment(\.chatTheme) var theme
-    @Environment(\.chatContentInset) private var chatContentInset
 
     @ObservedObject var viewModel: ChatViewModel
     @ObservedObject var inputViewModel: InputViewModel
@@ -70,9 +69,9 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
         tableView.dataSource = context.coordinator
         tableView.delegate = context.coordinator
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.contentInsetAdjustmentBehavior = .never
         tableView.transform = CGAffineTransform(rotationAngle: (type == .conversation ? .pi : 0))
 
+        tableView.contentInsetAdjustmentBehavior = .never
         tableView.showsVerticalScrollIndicator = false
         tableView.estimatedSectionHeaderHeight = 1
         tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
@@ -84,7 +83,6 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
         NotificationCenter.default.addObserver(forName: .onScrollToBottom, object: nil, queue: nil) { _ in
             DispatchQueue.main.async {
                 if !context.coordinator.sections.isEmpty {
-                    guard tableView.numberOfSections > 0, tableView.numberOfRows(inSection: 0) > 0 else { return }
                     tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
                 }
             }
@@ -96,19 +94,13 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
             }
         }
 
-        tableView.contentInset = chatContentInset
-        tableView.scrollIndicatorInsets = chatContentInset
+        tableView.contentInset = .zero
+        tableView.scrollIndicatorInsets = .zero
 
         return tableView
     }
 
     func updateUIView(_ tableView: UITableView, context: Context) {
-
-        if tableView.contentInset != chatContentInset {
-            tableView.contentInset = chatContentInset
-            tableView.scrollIndicatorInsets = chatContentInset
-        }
-
         if !isScrollEnabled {
             DispatchQueue.main.async {
                 tableContentHeight = tableView.contentSize.height
