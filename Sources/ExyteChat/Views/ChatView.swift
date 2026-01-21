@@ -177,89 +177,89 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
     
     public var body: some View {
         mainView
-            .background(chatBackground())
-            .environmentObject(keyboardState)
-        
-            .fullScreenCover(isPresented: $viewModel.fullscreenAttachmentPresented) {
-                let attachments = sections.flatMap { section in section.rows.flatMap { $0.message.attachments } }
-                let index = attachments.firstIndex { $0.id == viewModel.fullscreenAttachmentItem?.id }
-                
-                GeometryReader { g in
-                    FullscreenMediaPages(
-                        viewModel: FullscreenMediaPagesViewModel(
-                            attachments: attachments,
-                            index: index ?? 0
-                        ),
-                        safeAreaInsets: g.safeAreaInsets,
-                        onClose: { [weak viewModel] in
-                            viewModel?.dismissAttachmentFullScreen()
-                        }
-                    )
-                    .ignoresSafeArea()
-                }
-            }
-            .onAppear() {
-                if isGiphyAvailable() {
-                    if let giphyKey = giphyConfig.giphyKey {
-                        if !giphyConfigured {
-                            giphyConfigured = true
-                            Giphy.configure(apiKey: giphyKey)
-                        }
-                    } else {
-                        print("WARNING: giphy key not provided, please pass a key using giphyConfig")
-                    }
-                }
-            }
-            .onChange(of: selectedMedia) {
-                if let giphyMedia = selectedMedia {
-                    inputViewModel.attachments.giphyMedia = giphyMedia
-                    inputViewModel.send()
-                }
-            }
-            .sheet(isPresented: $inputViewModel.showGiphyPicker) {
-                if giphyConfig.giphyKey != nil {
-                    GiphyEditorView(
-                        giphyConfig: giphyConfig,
-                        selectedMedia: $selectedMedia
-                    )
-                    .environmentObject(globalFocusState)
-                } else {
-                    Text("no giphy key found")
-                }
-            }
-            .fullScreenCover(isPresented: $inputViewModel.showPicker) {
-                AttachmentsEditor(
-                    inputViewModel: inputViewModel,
-                    inputViewBuilder: inputViewBuilder,
-                    chatTitle: chatTitle,
-                    messageStyler: messageStyler,
-                    orientationHandler: orientationHandler,
-                    mediaPickerSelectionParameters: mediaPickerSelectionParameters,
-                    mediaPickerParameters: mediaPickerParameters,
-                    availableInputs: availableInputs,
-                    localization: localization
-                )
-                .environmentObject(globalFocusState)
-                .environmentObject(keyboardState)
-            }
-        
-            .onChange(of: inputViewModel.showPicker) { _ , newValue in
-                if newValue {
-                    globalFocusState.focus = nil
-                }
-            }
-            .onChange(of: inputViewModel.showGiphyPicker) { _ , newValue in
-                if newValue {
-                    globalFocusState.focus = nil
-                }
-            }
+//            .background(chatBackground())
+//            .environmentObject(keyboardState)
+//        
+//            .fullScreenCover(isPresented: $viewModel.fullscreenAttachmentPresented) {
+//                let attachments = sections.flatMap { section in section.rows.flatMap { $0.message.attachments } }
+//                let index = attachments.firstIndex { $0.id == viewModel.fullscreenAttachmentItem?.id }
+//                
+//                GeometryReader { g in
+//                    FullscreenMediaPages(
+//                        viewModel: FullscreenMediaPagesViewModel(
+//                            attachments: attachments,
+//                            index: index ?? 0
+//                        ),
+//                        safeAreaInsets: g.safeAreaInsets,
+//                        onClose: { [weak viewModel] in
+//                            viewModel?.dismissAttachmentFullScreen()
+//                        }
+//                    )
+//                    .ignoresSafeArea()
+//                }
+//            }
+//            .onAppear() {
+//                if isGiphyAvailable() {
+//                    if let giphyKey = giphyConfig.giphyKey {
+//                        if !giphyConfigured {
+//                            giphyConfigured = true
+//                            Giphy.configure(apiKey: giphyKey)
+//                        }
+//                    } else {
+//                        print("WARNING: giphy key not provided, please pass a key using giphyConfig")
+//                    }
+//                }
+//            }
+//            .onChange(of: selectedMedia) {
+//                if let giphyMedia = selectedMedia {
+//                    inputViewModel.attachments.giphyMedia = giphyMedia
+//                    inputViewModel.send()
+//                }
+//            }
+//            .sheet(isPresented: $inputViewModel.showGiphyPicker) {
+//                if giphyConfig.giphyKey != nil {
+//                    GiphyEditorView(
+//                        giphyConfig: giphyConfig,
+//                        selectedMedia: $selectedMedia
+//                    )
+//                    .environmentObject(globalFocusState)
+//                } else {
+//                    Text("no giphy key found")
+//                }
+//            }
+//            .fullScreenCover(isPresented: $inputViewModel.showPicker) {
+//                AttachmentsEditor(
+//                    inputViewModel: inputViewModel,
+//                    inputViewBuilder: inputViewBuilder,
+//                    chatTitle: chatTitle,
+//                    messageStyler: messageStyler,
+//                    orientationHandler: orientationHandler,
+//                    mediaPickerSelectionParameters: mediaPickerSelectionParameters,
+//                    mediaPickerParameters: mediaPickerParameters,
+//                    availableInputs: availableInputs,
+//                    localization: localization
+//                )
+//                .environmentObject(globalFocusState)
+//                .environmentObject(keyboardState)
+//            }
+//        
+//            .onChange(of: inputViewModel.showPicker) { _ , newValue in
+//                if newValue {
+//                    globalFocusState.focus = nil
+//                }
+//            }
+//            .onChange(of: inputViewModel.showGiphyPicker) { _ , newValue in
+//                if newValue {
+//                    globalFocusState.focus = nil
+//                }
+//            }
     }
     
     var mainView: some View {
         VStack {
-            if showNetworkConnectionProblem, !networkMonitor.isConnected {
-                waitingForNetwork
-            }
+//            if showNetworkConnectionProblem, !networkMonitor.isConnected {
+//                waitingForNetwork
+//            }
 
             //if isListAboveInputView {
 
@@ -281,7 +281,7 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
 //            }
         }
         // Used to prevent ChatView movement during Emoji Keyboard invocation
-        .ignoresSafeArea(isShowingMenu ? .keyboard : [])
+        //.ignoresSafeArea(isShowingMenu ? .keyboard : [])
         .ignoresSafeArea(.container, edges: [.top, .bottom])
     }
     
