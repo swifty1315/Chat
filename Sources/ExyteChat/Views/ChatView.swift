@@ -260,13 +260,18 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
             if showNetworkConnectionProblem, !networkMonitor.isConnected {
                 waitingForNetwork
             }
-            
+
             if isListAboveInputView {
-                listWithButton
-                if let builder = betweenListAndInputViewBuilder {
-                    builder()
+
+                ZStack(alignment: .bottom) {
+
+                    listWithButton
+
+                        .ignoresSafeArea(.container, edges: [.top, .bottom])
+
+                        inputView
                 }
-                inputView
+
             } else {
                 inputView
                 if let builder = betweenListAndInputViewBuilder {
