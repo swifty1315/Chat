@@ -11,11 +11,25 @@ public extension Notification.Name {
     static let onScrollToBottom = Notification.Name("onScrollToBottom")
 }
 
+// MARK: - Chat content inset (LOCAL, no separate file)
+
+struct ChatContentInsetKey: EnvironmentKey {
+    static let defaultValue: UIEdgeInsets = .zero
+}
+
+extension EnvironmentValues {
+    var chatContentInset: UIEdgeInsets {
+        get { self[ChatContentInsetKey.self] }
+        set { self[ChatContentInsetKey.self] = newValue }
+    }
+}
+
 struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
 
     typealias MessageBuilderClosure = ChatView<MessageContent, InputView, DefaultMessageMenuAction>.MessageBuilderClosure
 
     @Environment(\.chatTheme) var theme
+    @Environment(\.chatContentInset) private var chatContentInset
 
     @ObservedObject var viewModel: ChatViewModel
     @ObservedObject var inputViewModel: InputViewModel
@@ -81,10 +95,19 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
             }
         }
 
+        tableView.contentInset = chatContentInset
+        tableView.scrollIndicatorInsets = chatContentInset
+
         return tableView
     }
 
     func updateUIView(_ tableView: UITableView, context: Context) {
+
+        if tableView.contentInset != chatContentInset {
+            tableView.contentInset = chatContentInset
+            tableView.scrollIndicatorInsets = chatContentInset
+        }
+
         if !isScrollEnabled {
             DispatchQueue.main.async {
                 tableContentHeight = tableView.contentSize.height
