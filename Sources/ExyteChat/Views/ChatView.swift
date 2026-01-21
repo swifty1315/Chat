@@ -282,7 +282,7 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
         }
         // Used to prevent ChatView movement during Emoji Keyboard invocation
         //.ignoresSafeArea(isShowingMenu ? .keyboard : [])
-        .ignoresSafeArea(.container, edges: [.top, .bottom])
+        //.ignoresSafeArea(.container, edges: [.top, .bottom])
     }
     
     var waitingForNetwork: some View {
@@ -366,12 +366,12 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
         .onStatusBarTap {
             shouldScrollToTop()
         }
-        .transparentNonAnimatingFullScreenCover(item: $viewModel.messageMenuRow) {
-            if let row = viewModel.messageMenuRow {
-                messageMenu(row)
-                    .onAppear(perform: showMessageMenu)
-            }
-        }
+//        .transparentNonAnimatingFullScreenCover(item: $viewModel.messageMenuRow) {
+//            if let row = viewModel.messageMenuRow {
+//                messageMenu(row)
+//                    .onAppear(perform: showMessageMenu)
+//            }
+//        }
         .onPreferenceChange(MessageMenuPreferenceKey.self) { frames in
             DispatchQueue.main.async {
                 self.cellFrames = frames
