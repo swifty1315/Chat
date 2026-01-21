@@ -263,14 +263,14 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
 
             if isListAboveInputView {
 
-                ZStack(alignment: .bottom) {
+                //ZStack(alignment: .bottom) {
 
                     listWithButton
 
-                        .ignoresSafeArea(.container, edges: [.top, .bottom])
+                        //.ignoresSafeArea(.container, edges: [.top, .bottom])
 
-                        inputView
-                }
+                        //inputView
+                //}
 
             } else {
                 inputView
