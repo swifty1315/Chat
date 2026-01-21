@@ -261,7 +261,7 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
                 waitingForNetwork
             }
 
-            if isListAboveInputView {
+            //if isListAboveInputView {
 
                 //ZStack(alignment: .bottom) {
 
@@ -272,13 +272,13 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
                         //inputView
                 //}
 
-            } else {
-                inputView
-                if let builder = betweenListAndInputViewBuilder {
-                    builder()
-                }
-                listWithButton
-            }
+//            } else {
+//                inputView
+//                if let builder = betweenListAndInputViewBuilder {
+//                    builder()
+//                }
+//                listWithButton
+//            }
         }
         // Used to prevent ChatView movement during Emoji Keyboard invocation
         .ignoresSafeArea(isShowingMenu ? .keyboard : [])
@@ -319,7 +319,7 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
                             .frame(width: 40, height: 40)
                             .circleBackground(theme.colors.messageFriendBG)
                             .foregroundStyle(theme.colors.sendButtonBackground)
-                            .shadow(color: .primary.opacity(0.1), radius: 2, y: 1)
+                            //.shadow(color: .primary.opacity(0.1), radius: 2, y: 1)
                     }
                     .padding(.trailing, MessageView.horizontalScreenEdgePadding)
                     .padding(.bottom, 8)
